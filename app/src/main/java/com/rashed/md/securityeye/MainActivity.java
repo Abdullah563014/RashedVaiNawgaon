@@ -195,394 +195,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         if (view.getId() == R.id.findSmsButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("location", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("location", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "findSmsButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.RECEIVE_SMS}, 300);
-                    } else {
-                        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{Manifest.permission.READ_SMS}, 200);
-                        } else {
-                            if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                    Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(MainActivity.this,
-                                        new String[]{Manifest.permission.SEND_SMS}, 100);
-                            } else {
-
-                                sendFindSms();
-                            }
-                        }
-                    }
-                } else {
-                    sendFindSms();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            sendSms(findTextMessage);
         }
 
 
         if (view.getId() == R.id.statusSmsButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("status", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("status", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "statusSmsButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                    } else {
-                        sendStatusSms();
-                    }
-                } else {
-                    sendStatusSms();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            sendSms(statusTextMessage);
         }
+
+
         if (view.getId() == R.id.alertSmsButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("vibration sensor on", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("vibration sensor on", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "alertSmsButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                    } else {
-                        sendAlertSms();
-                    }
-                } else {
-                    sendAlertSms();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            sendSms(alertTextMessage);
         }
+
         if (view.getId() == R.id.easySmsButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("vibration sensor off", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("vibration sensor off", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "easySmsButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                    } else {
-                        sendEasySms();
-                    }
-                } else {
-                    sendEasySms();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            sendSms(easyTextMessage);
         }
+
         if (view.getId() == R.id.onSmsButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("bike unlock", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("bike unlock", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "onSmsButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                    } else {
-                        sendOnSms();
-                    }
-                } else {
-                    sendOnSms();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            sendSms(onTextMessage);
         }
+
         if (view.getId() == R.id.offSmsButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("bike lock", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("bike lock", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "offSmsButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                    } else {
-                        sendOffSms();
-                    }
-                } else {
-                    sendOffSms();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            sendSms(offTextMessage);
         }
 
 
         if (view.getId() == R.id.startSmsButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("bike start", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("bike start", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "startSmsButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                    } else {
-                        sendStartSms();
-                    }
-                } else {
-                    sendStartSms();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            sendSms(startTextMessage);
         }
 
         if (view.getId() == R.id.carOffSmsButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("car lock", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("car lock", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "carOffSmsButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                    } else {
-                        sendCarOffSms();
-                    }
-                } else {
-                    sendCarOffSms();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            sendSms(carOffTextMessage);
         }
+
         if (view.getId() == R.id.carOnSmsButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("car unlock", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("car unlock", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "carOnSmsButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                    } else {
-                        sendCarOnSms();
-                    }
-                } else {
-                    sendCarOnSms();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            sendSms(carOnTextMessage);
         }
 
         if (view.getId() == R.id.lockCallButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("lock", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("lock", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "lockCallButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.CALL_PHONE}, 100);
-                    } else {
-                        makeCall(phoneNumber,",*,*,*,*");
-                    }
-                } else {
-                    makeCall(phoneNumber,",*,*,*,*");
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            makeCall(phoneNumber,",*,*,*,*");
         }
         if (view.getId() == R.id.unLockCallButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeech.speak("unlock", TextToSpeech.QUEUE_FLUSH, null, null);
-            } else {
-                textToSpeech.speak("unlock", TextToSpeech.QUEUE_FLUSH, null);
-            }
-            lastButtonId = "unLockCallButtonId";
-            try {
-                storeLastButtonId();
-                updateLastButtonStatus();
-                if (phoneNumber != null) {
-                    double num = Double.parseDouble(phoneNumber);
-                } else {
-                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.CALL_PHONE}, 100);
-                    } else {
-                        makeUnlockCall();
-                    }
-                } else {
-                    makeUnlockCall();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-            }
+            makeCall(phoneNumber,",%23,%23,%23,%23");
         }
 
         if (view.getId() == R.id.contactUsButtonId) {
-            vibrateCreation();
-            try {
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.CALL_PHONE}, 100);
-                    } else {
-                        makeContactCall();
-                    }
-                } else {
-                    makeContactCall();
-                }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Unknown Error", Toast.LENGTH_SHORT).show();
-            }
+            makeCall("01718171529",null);
         }
 
         if (view.getId() == R.id.facebookButtonId) {
@@ -667,29 +326,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }else {
                                     Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                                 }
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                            Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.RECEIVE_SMS}, 300);
-                                    } else {
-                                        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                                Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                            ActivityCompat.requestPermissions(MainActivity.this,
-                                                    new String[]{Manifest.permission.READ_SMS}, 200);
-                                        } else {
-                                            if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                                    Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                                ActivityCompat.requestPermissions(MainActivity.this,
-                                                        new String[]{Manifest.permission.SEND_SMS}, 100);
-                                            } else {
-                                                sendFindSms();
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    sendFindSms();
-                                }
+                                sendSms(findTextMessage);
                             } catch (NumberFormatException e) {
                                 Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                             }
@@ -708,17 +345,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }else {
                                     Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                                 }
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                                    } else {
-                                        sendStatusSms();
-                                    }
-                                } else {
-                                    sendStatusSms();
-                                }
+                                sendSms(statusTextMessage);
                             } catch (NumberFormatException e) {
                                 Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                             }
@@ -737,17 +364,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }else {
                                     Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                                 }
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                                    } else {
-                                        sendEasySms();
-                                    }
-                                } else {
-                                    sendEasySms();
-                                }
+                                sendSms(easyTextMessage);
                             } catch (NumberFormatException e) {
                                 Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                             }
@@ -766,17 +383,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }else {
                                     Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                                 }
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                                    } else {
-                                        sendAlertSms();
-                                    }
-                                } else {
-                                    sendAlertSms();
-                                }
+                                sendSms(alertTextMessage);
                             } catch (NumberFormatException e) {
                                 Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                             }
@@ -795,17 +402,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }else {
                                     Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                                 }
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                                    } else {
-                                        sendOnSms();
-                                    }
-                                } else {
-                                    sendOnSms();
-                                }
+                                sendSms(onTextMessage);
                             } catch (NumberFormatException e) {
                                 Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                             }
@@ -824,17 +421,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }else {
                                     Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                                 }
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                                    } else {
-                                        sendOffSms();
-                                    }
-                                } else {
-                                    sendOffSms();
-                                }
+                                sendSms(offTextMessage);
                             } catch (NumberFormatException e) {
                                 Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                             }
@@ -853,17 +440,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }else {
                                     Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                                 }
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                                    } else {
-                                        sendStartSms();
-                                    }
-                                } else {
-                                    sendStartSms();
-                                }
+                                sendSms(startTextMessage);
                             } catch (NumberFormatException e) {
                                 Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                             }
@@ -883,17 +460,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }else {
                                     Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                                 }
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                                    } else {
-                                        sendCarOnSms();
-                                    }
-                                } else {
-                                    sendCarOnSms();
-                                }
+                                sendSms(carOnTextMessage);
                             } catch (NumberFormatException e) {
                                 Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                             }
@@ -913,17 +480,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 }else {
                                     Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                                 }
-                                if (Build.VERSION.SDK_INT > 22) {
-                                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                                            Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.SEND_SMS}, 100);
-                                    } else {
-                                        sendCarOffSms();
-                                    }
-                                } else {
-                                    sendCarOffSms();
-                                }
+                                sendSms(carOffTextMessage);
                             } catch (NumberFormatException e) {
                                 Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                             }
@@ -948,29 +505,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void makeLockCall() {
-        String callNumber = phoneNumber + ",*,*,*,*";
-        Uri uri = Uri.parse("tel:" + callNumber);
-        intent = new Intent(Intent.ACTION_CALL, uri);
-        startActivity(intent);
-    }
-
-    public void makeUnlockCall() {
-        String callNumber = phoneNumber + ",%23,%23,%23,%23";
-        Uri uri = Uri.parse("tel:" + callNumber);
-        intent = new Intent(Intent.ACTION_CALL, uri);
-        startActivity(intent);
-    }
-
-    public void makeContactCall() {
-        String callNumber = "01718171529";
-        Uri uri = Uri.parse("tel:" + callNumber);
-        intent = new Intent(Intent.ACTION_CALL, uri);
-        startActivity(intent);
-    }
-
 
     public void makeCall(String number, String symbole){
+        vibrateCreation();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textToSpeech.speak("lock", TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            textToSpeech.speak("lock", TextToSpeech.QUEUE_FLUSH, null);
+        }
+        lastButtonId = "lockCallButtonId";
+        try {
+            storeLastButtonId();
+            updateLastButtonStatus();
+            if (phoneNumber != null) {
+                double num = Double.parseDouble(phoneNumber);
+            } else {
+                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (Build.VERSION.SDK_INT > 22) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "You need to provide some permission to use the app. To grant the permission please close the app and reopen to see the permissions dialog.Thank you", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    callHandler(phoneNumber,symbole);
+                }
+            } else {
+                callHandler(phoneNumber,symbole);
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    private void callHandler(String number,String symbole){
         if (symbole!=null && !symbole.isEmpty()){
             String callNumber = number + symbole;
             Uri uri = Uri.parse("tel:" + callNumber);
@@ -981,115 +550,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent = new Intent(Intent.ACTION_CALL, uri);
             startActivity(intent);
         }
-
     }
 
-    public void sendSms(String command){
+
+
+    public void sendSms(String smsCommand){
+        vibrateCreation();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textToSpeech.speak("location", TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            textToSpeech.speak("location", TextToSpeech.QUEUE_FLUSH, null);
+        }
+        lastButtonId = "findSmsButtonId";
+        try {
+            storeLastButtonId();
+            updateLastButtonStatus();
+            if (phoneNumber != null) {
+                double num = Double.parseDouble(phoneNumber);
+            } else {
+                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (Build.VERSION.SDK_INT > 22) {
+                String[] permissions = {
+                        Manifest.permission.SEND_SMS,
+                        Manifest.permission.READ_SMS,
+                        Manifest.permission.RECEIVE_SMS,
+                        Manifest.permission.VIBRATE
+                };
+                if (!hasPermission(this, permissions)) {
+                    Toast.makeText(this, "You need to provide some permission to use the app. To grant the permission please close the app and reopen to see the permissions dialog.Thank you", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    sendMessageHandle(smsCommand);
+                }
+            } else {
+                sendMessageHandle(smsCommand);
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void sendMessageHandle(String command){
         try {
             messageHandleMethod();
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, command, sentPI, deliveredPI);
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    public void sendFindSms() {
-        try {
-            messageHandleMethod();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, findTextMessage, sentPI, deliveredPI);
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-
-    public void sendStatusSms() {
-        try {
-
-            messageHandleMethod();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, statusTextMessage, sentPI, deliveredPI);
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void sendAlertSms() {
-        try {
-
-            messageHandleMethod();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, alertTextMessage, sentPI, deliveredPI);
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void sendEasySms() {
-        try {
-
-            messageHandleMethod();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, easyTextMessage, sentPI, deliveredPI);
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void sendOnSms() {
-        try {
-
-            messageHandleMethod();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, onTextMessage, sentPI, deliveredPI);
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void sendOffSms() {
-        try {
-
-            messageHandleMethod();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, offTextMessage, sentPI, deliveredPI);
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void sendStartSms() {
-        try {
-
-            messageHandleMethod();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, startTextMessage, sentPI, deliveredPI);
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void sendCarOffSms() {
-        try {
-
-            messageHandleMethod();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, carOffTextMessage, sentPI, deliveredPI);
-        } catch (Exception e) {
-            Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void sendCarOnSms() {
-        try {
-
-            messageHandleMethod();
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, carOnTextMessage, sentPI, deliveredPI);
         } catch (Exception e) {
             Toast.makeText(this, "Failed to send message", Toast.LENGTH_SHORT).show();
         }
