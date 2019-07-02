@@ -196,40 +196,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.findSmsButtonId:
-                sendSms(findTextMessage);
+                sendSms(findTextMessage,"findSmsButtonId","location");
                 break;
 
             case R.id.statusSmsButtonId:
-                sendSms(statusTextMessage);
+                sendSms(statusTextMessage,"statusSmsButtonId","status");
                 break;
 
 
             case R.id.alertSmsButtonId:
-                sendSms(easyTextMessage);
+                sendSms(alertTextMessage,"alertSmsButtonId","vib sensor on");
                 break;
 
             case R.id.easySmsButtonId:
-                sendSms(easyTextMessage);
+                sendSms(easyTextMessage,"easySmsButtonId","vib sensor off");
                 break;
 
             case R.id.onSmsButtonId:
-                sendSms(onTextMessage);
+                sendSms(onTextMessage,"onSmsButtonId","unlock");
                 break;
 
             case R.id.offSmsButtonId:
-                sendSms(offTextMessage);
+                sendSms(offTextMessage,"offSmsButtonId","lock");
                 break;
 
             case R.id.startSmsButtonId:
-                sendSms(startTextMessage);
+                sendSms(startTextMessage,"startSmsButtonId","bike start");
                 break;
 
             case R.id.carOffSmsButtonId:
-                sendSms(carOffTextMessage);
+                sendSms(carOffTextMessage,"carOffSmsButtonId","car off");
                 break;
 
             case R.id.carOnSmsButtonId:
-                sendSms(carOnTextMessage);
+                sendSms(carOnTextMessage,"carOnSmsButtonId","car on");
                 break;
 
 //            case R.id.lockCallButtonId:
@@ -302,44 +302,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for (int i = 0; i < result.size(); i++) {
                     String value = result.get(i).toLowerCase();
                     if (value.contains("location")) {
-                        voiceCommand(findTextMessage,"ok, trying to retrieve your bike location");
+                        voiceCommand(findTextMessage,"ok, trying to retrieve your bike location","findSmsButtonId");
                     }
 
                     else if (value.contains("status")) {
-                        voiceCommand(statusTextMessage,"ok, trying to retrieve your bike status");
+                        voiceCommand(statusTextMessage,"ok, trying to retrieve your bike status","statusSmsButtonId");
                     }
 
                     else if (value.contains("sensor of") || value.contains("sensor off")) {
-                        voiceCommand(easyTextMessage,"ok, trying to turn off your bike sensor");
+                        voiceCommand(easyTextMessage,"ok, trying to turn off your bike sensor","easySmsButtonId");
                     }
 
                     else if (value.contains("sensor on") || value.contains("sensor 1")) {
-                        voiceCommand(alertTextMessage,"ok, trying to turn on your bike sensor");
+                        voiceCommand(alertTextMessage,"ok, trying to turn on your bike sensor","alertSmsButtonId");
                     }
 
                     else if (value.contains("bike on") || value.contains("mike on")) {
-                        voiceCommand(onTextMessage,"ok, trying to turn on your bike");
+                        voiceCommand(onTextMessage,"ok, trying to turn on your bike","onSmsButtonId");
                     }
 
                     else if (value.contains("bike off") || value.contains("bike of") || value.contains("mike off") || value.contains("mike of")) {
-                        voiceCommand(offTextMessage,"ok, trying to turn off your bike");
+                        voiceCommand(offTextMessage,"ok, trying to turn off your bike","offSmsButtonId");
                     }
 
                     else if (value.contains("bike start")) {
-                        voiceCommand(startTextMessage,"ok, trying to start your bike");
+                        voiceCommand(startTextMessage,"ok, trying to start your bike","startSmsButtonId");
                     }
 
 
                     else if (value.contains("car unlock")) {
-                        voiceCommand(carOnTextMessage,"ok, trying to unlock your car");
+                        voiceCommand(carOnTextMessage,"ok, trying to unlock your car","carOnSmsButtonId");
                     }
 
 
                     else if (value.contains("car lock")) {
-                        voiceCommand(carOffTextMessage,"ok, trying to lock your car");
+                        voiceCommand(carOffTextMessage,"ok, trying to lock your car","carOffSmsButtonId");
                     }
                     else {
-                        voiceCommand(null,"your command is incorrect, please try again");
+                        voiceCommand(null,"your command is incorrect, please try again",null);
                     }
                 }
             } else {
@@ -349,7 +349,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void voiceCommand(String smsCommand, String voiceCommand){
+    private void voiceCommand(String smsCommand, String voiceCommand,String buttonId){
         if (smsCommand!=null && !smsCommand.isEmpty()){
             if (voiceSendSms == true) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -363,7 +363,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }else {
                         Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
                     }
-                    sendSms(smsCommand);
+                    if (buttonId!=null && !buttonId.isEmpty()){
+                        sendSmsFromVoiceCommand(smsCommand,buttonId);
+                    }
                 } catch (NumberFormatException e) {
                     Toast.makeText(this, "Phone number not valid", Toast.LENGTH_SHORT).show();
                 }
@@ -431,14 +433,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    public void sendSms(String smsCommand){
+    public void sendSms(String smsCommand,String buttonId,String speechText){
+        vibrateCreation();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textToSpeech.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            textToSpeech.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
+        }
+        lastButtonId = buttonId;
+        try {
+            storeLastButtonId();
+            updateLastButtonStatus();
+            if (phoneNumber != null) {
+                double num = Double.parseDouble(phoneNumber);
+            } else {
+                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (Build.VERSION.SDK_INT > 22) {
+                String[] permissions = {
+                        Manifest.permission.SEND_SMS,
+                        Manifest.permission.READ_SMS,
+                        Manifest.permission.RECEIVE_SMS,
+                        Manifest.permission.VIBRATE
+                };
+                if (!hasPermission(this, permissions)) {
+                    Toast.makeText(this, "You need to provide some permission to use the app. To grant the permission please close the app and reopen to see the permissions dialog.Thank you", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    sendMessageHandle(smsCommand);
+                }
+            } else {
+                sendMessageHandle(smsCommand);
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void sendSmsFromVoiceCommand(String smsCommand,String buttonId){
         vibrateCreation();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             textToSpeech.speak("location", TextToSpeech.QUEUE_FLUSH, null, null);
         } else {
             textToSpeech.speak("location", TextToSpeech.QUEUE_FLUSH, null);
         }
-        lastButtonId = "findSmsButtonId";
+        lastButtonId = buttonId;
         try {
             storeLastButtonId();
             updateLastButtonStatus();
@@ -509,7 +550,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void updateLastButtonStatus() {
         SharedPreferences sharedPreferences = getSharedPreferences("LastButton", MODE_PRIVATE);
         String lastButton = sharedPreferences.getString("lastButton", null);
-        if (lastButton != null) {
+        if (lastButton != null && !lastButton.isEmpty()) {
             int resID = getResources().getIdentifier(lastButton, "id", getPackageName());
             ImageButton button = ((ImageButton) findViewById(resID));
             sendFindSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
