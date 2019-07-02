@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sendOffSmsButton,
             sendStartSmsButton,
             sendCarOffSmsButton,
-            sendCarOnSmsButton,
-            lockCallButton,
-            unlockCallButton;
-    Button voiceCommandButon;
+            sendCarOnSmsButton;
+//            lockCallButton,
+//            unlockCallButton;
+    Button voiceCommandButon,liveTrackButton;
     Intent intent;
     public static String phoneNumber = null;
     String findTextMessage = "6690000";
@@ -100,12 +100,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendStartSmsButton = findViewById(R.id.startSmsButtonId);
         sendCarOffSmsButton = findViewById(R.id.carOffSmsButtonId);
         sendCarOnSmsButton = findViewById(R.id.carOnSmsButtonId);
-        lockCallButton = findViewById(R.id.lockCallButtonId);
-        unlockCallButton = findViewById(R.id.unLockCallButtonId);
+//        lockCallButton = findViewById(R.id.lockCallButtonId);
+//        unlockCallButton = findViewById(R.id.unLockCallButtonId);
         showPhoneNumberTextView = findViewById(R.id.showPhoneNumberTextViewId);
         contactCall = findViewById(R.id.contactUsButtonId);
         contactFacebook = findViewById(R.id.facebookButtonId);
         voiceCommandButon=findViewById(R.id.voiceCommandButtonId);
+        liveTrackButton=findViewById(R.id.openWebsiteButtonId);
 
 
         setPhoneNumberButton.setOnClickListener(this);
@@ -118,11 +119,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sendStartSmsButton.setOnClickListener(this);
         sendCarOffSmsButton.setOnClickListener(this);
         sendCarOnSmsButton.setOnClickListener(this);
-        lockCallButton.setOnClickListener(this);
-        unlockCallButton.setOnClickListener(this);
+//        lockCallButton.setOnClickListener(this);
+//        unlockCallButton.setOnClickListener(this);
         voiceCommandButon.setOnClickListener(this);
         contactCall.setOnClickListener(this);
         contactFacebook.setOnClickListener(this);
+        liveTrackButton.setOnClickListener(this);
 
 
         int PERMISSION_ALL = 1;
@@ -230,13 +232,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sendSms(carOnTextMessage);
                 break;
 
-            case R.id.lockCallButtonId:
-                makeCall(phoneNumber,",*,*,*,*");
-                break;
-
-            case R.id.unLockCallButtonId:
-                makeCall(phoneNumber,",%23,%23,%23,%23");
-                break;
+//            case R.id.lockCallButtonId:
+//                makeCall(phoneNumber,",*,*,*,*");
+//                break;
+//
+//            case R.id.unLockCallButtonId:
+//                makeCall(phoneNumber,",%23,%23,%23,%23");
+//                break;
 
             case R.id.contactUsButtonId:
                 makeCall("01718171529",null);
@@ -244,6 +246,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.facebookButtonId:
                 openUrl("https://www.facebook.com/naogaon.tinyscientist");
+                break;
+
+            case R.id.openWebsiteButtonId:
+                openUrl("http://www.sinotracking.com/app/Login.html");
                 break;
 
             case R.id.voiceCommandButtonId:
