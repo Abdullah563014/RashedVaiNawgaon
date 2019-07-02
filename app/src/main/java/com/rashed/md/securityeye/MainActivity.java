@@ -296,188 +296,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for (int i = 0; i < result.size(); i++) {
                     String value = result.get(i).toLowerCase();
                     if (value.contains("location")) {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("ok, trying to retrieve your bike location", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("ok, trying to retrieve your bike location", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            try {
-                                if (!TextUtils.isEmpty(phoneNumber)){
-                                    double num = Double.parseDouble(phoneNumber);
-                                }else {
-                                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                                }
-                                sendSms(findTextMessage);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                            }
-                            voiceSendSms = false;
-                        }
-                    } else if (value.contains("status")) {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("ok, trying to retrieve your bike status", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("ok, trying to retrieve your bike status", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            try {
-                                if (!TextUtils.isEmpty(phoneNumber)){
-                                    double num = Double.parseDouble(phoneNumber);
-                                }else {
-                                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                                }
-                                sendSms(statusTextMessage);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                            }
-                            voiceSendSms = false;
-                        }
-                    } else if (value.contains("sensor of") || value.contains("sensor off")) {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("ok, trying to turn off your bike sensor", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("ok, trying to turn off your bike sensor", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            try {
-                                if (!TextUtils.isEmpty(phoneNumber)){
-                                    double num = Double.parseDouble(phoneNumber);
-                                }else {
-                                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                                }
-                                sendSms(easyTextMessage);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                            }
-                            voiceSendSms = false;
-                        }
-                    } else if (value.contains("sensor on") || value.contains("sensor 1")) {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("ok, trying to turn on your bike sensor", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("ok, trying to turn on your bike sensor", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            try {
-                                if (!TextUtils.isEmpty(phoneNumber)){
-                                    double num = Double.parseDouble(phoneNumber);
-                                }else {
-                                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                                }
-                                sendSms(alertTextMessage);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                            }
-                            voiceSendSms = false;
-                        }
-                    } else if (value.contains("bike on") || value.contains("mike on")) {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("ok, trying to turn on your bike", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("ok, trying to turn on your bike", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            try {
-                                if (!TextUtils.isEmpty(phoneNumber)){
-                                    double num = Double.parseDouble(phoneNumber);
-                                }else {
-                                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                                }
-                                sendSms(onTextMessage);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                            }
-                            voiceSendSms = false;
-                        }
-                    } else if (value.contains("bike off") || value.contains("bike of") || value.contains("mike off") || value.contains("mike of")) {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("ok, trying to turn off your bike", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("ok, trying to turn off your bike", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            try {
-                                if (!TextUtils.isEmpty(phoneNumber)){
-                                    double num = Double.parseDouble(phoneNumber);
-                                }else {
-                                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                                }
-                                sendSms(offTextMessage);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                            }
-                            voiceSendSms = false;
-                        }
-                    }else if (value.contains("bike start")) {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("ok, trying to start your bike", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("ok, trying to start your bike", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            try {
-                                if (!TextUtils.isEmpty(phoneNumber)){
-                                    double num = Double.parseDouble(phoneNumber);
-                                }else {
-                                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                                }
-                                sendSms(startTextMessage);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                            }
-                            voiceSendSms = false;
-                        }
+                        voiceCommand(findTextMessage,"ok, trying to retrieve your bike location");
                     }
+
+                    else if (value.contains("status")) {
+                        voiceCommand(statusTextMessage,"ok, trying to retrieve your bike status");
+                    }
+
+                    else if (value.contains("sensor of") || value.contains("sensor off")) {
+                        voiceCommand(easyTextMessage,"ok, trying to turn off your bike sensor");
+                    }
+
+                    else if (value.contains("sensor on") || value.contains("sensor 1")) {
+                        voiceCommand(alertTextMessage,"ok, trying to turn on your bike sensor");
+                    }
+
+                    else if (value.contains("bike on") || value.contains("mike on")) {
+                        voiceCommand(onTextMessage,"ok, trying to turn on your bike");
+                    }
+
+                    else if (value.contains("bike off") || value.contains("bike of") || value.contains("mike off") || value.contains("mike of")) {
+                        voiceCommand(offTextMessage,"ok, trying to turn off your bike");
+                    }
+
+                    else if (value.contains("bike start")) {
+                        voiceCommand(startTextMessage,"ok, trying to start your bike");
+                    }
+
+
                     else if (value.contains("car unlock")) {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("ok, trying to unlock your car", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("ok, trying to unlock your car", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            try {
-                                if (!TextUtils.isEmpty(phoneNumber)){
-                                    double num = Double.parseDouble(phoneNumber);
-                                }else {
-                                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                                }
-                                sendSms(carOnTextMessage);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                            }
-                            voiceSendSms = false;
-                        }
+                        voiceCommand(carOnTextMessage,"ok, trying to unlock your car");
                     }
+
+
                     else if (value.contains("car lock")) {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("ok, trying to lock your car", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("ok, trying to lock your car", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            try {
-                                if (!TextUtils.isEmpty(phoneNumber)){
-                                    double num = Double.parseDouble(phoneNumber);
-                                }else {
-                                    Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                                }
-                                sendSms(carOffTextMessage);
-                            } catch (NumberFormatException e) {
-                                Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
-                            }
-                            voiceSendSms = false;
-                        }
+                        voiceCommand(carOffTextMessage,"ok, trying to lock your car");
                     }
                     else {
-                        if (voiceSendSms == true) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                textToSpeech.speak("your command is incorrect, please try again", TextToSpeech.QUEUE_FLUSH, null, null);
-                            } else {
-                                textToSpeech.speak("your command is incorrect, please try again", TextToSpeech.QUEUE_FLUSH, null);
-                            }
-                            voiceSendSms = false;
-                        }
+                        voiceCommand(null,"your command is incorrect, please try again");
                     }
                 }
             } else {
@@ -486,6 +342,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
+    private void voiceCommand(String smsCommand, String voiceCommand){
+        if (smsCommand!=null && !smsCommand.isEmpty()){
+            if (voiceSendSms == true) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    textToSpeech.speak(voiceCommand, TextToSpeech.QUEUE_FLUSH, null, null);
+                } else {
+                    textToSpeech.speak(voiceCommand, TextToSpeech.QUEUE_FLUSH, null);
+                }
+                try {
+                    if (!TextUtils.isEmpty(phoneNumber)){
+                        double num = Double.parseDouble(phoneNumber);
+                    }else {
+                        Toast.makeText(this, "Please set your phone number", Toast.LENGTH_SHORT).show();
+                    }
+                    sendSms(smsCommand);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(this, "Phone number not valid", Toast.LENGTH_SHORT).show();
+                }
+                voiceSendSms = false;
+            }
+        }else {
+            if (voiceSendSms == true) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    textToSpeech.speak(voiceCommand, TextToSpeech.QUEUE_FLUSH, null, null);
+                } else {
+                    textToSpeech.speak(voiceCommand, TextToSpeech.QUEUE_FLUSH, null);
+                }
+                voiceSendSms = false;
+            }
+        }
+
+    }
 
 
     public void makeCall(String number, String symbole){
@@ -584,14 +473,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-//    public void openFacebook() {
-//        String url = "https://www.facebook.com/naogaon.tinyscientist";
-//        Intent i = new Intent(Intent.ACTION_VIEW);
-//        i.setData(Uri.parse(url));
-//        Intent chooser=Intent.createChooser(i,"Choose Browser");
-//        startActivity(chooser);
-//    }
 
     private void openUrl(String url){
         vibrateCreation();
