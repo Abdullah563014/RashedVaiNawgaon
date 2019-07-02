@@ -146,19 +146,19 @@
                     android:orientation="horizontal"
                     android:weightSum="3">
 
-                    <ImageButton
-                        android:id="@+id/startSmsButtonId"
-                        android:layout_width="100dp"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/green_and_white_border_button"
-                        android:textColor="@color/buttonTextColor"
-                        android:layout_height="100dp"
-                        android:paddingLeft="4dp"
-                        android:src="@drawable/ic_bike_start"
-                        android:paddingRight="4dp"
-                        android:textSize="10sp"
-                        android:layout_gravity="center_vertical"
-                        android:text="Bike Start" />
+                    <!--<ImageButton-->
+                        <!--android:id="@+id/startSmsButtonId"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:background="@drawable/green_and_white_border_button"-->
+                        <!--android:textColor="@color/buttonTextColor"-->
+                        <!--android:layout_height="100dp"-->
+                        <!--android:paddingLeft="4dp"-->
+                        <!--android:src="@drawable/ic_bike_start"-->
+                        <!--android:paddingRight="4dp"-->
+                        <!--android:textSize="10sp"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:text="Bike Start" />-->
 
                     <ImageButton
                         android:id="@+id/carOffSmsButtonId"
