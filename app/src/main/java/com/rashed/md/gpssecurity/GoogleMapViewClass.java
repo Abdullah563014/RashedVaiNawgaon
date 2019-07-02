@@ -24,7 +24,9 @@ public class GoogleMapViewClass extends AppCompatActivity {
         if (bundle != null) {
             try {
                 url = bundle.getString("message");
-                latAndLon = url.substring(34).trim();
+//                latAndLon = url.substring(34).trim();
+                String[] strings=url.split("Date");
+                latAndLon=strings[0].trim();
 //                String[] latAndLongValue=latAndLon.split(",");
 //                latituate=latAndLongValue[0];
 //                longituate=latAndLongValue[1];
@@ -38,7 +40,8 @@ public class GoogleMapViewClass extends AppCompatActivity {
 
         try {
             Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW);
-            mapIntent.setData(Uri.parse("geo:0,0?q=" + latAndLon));
+//            mapIntent.setData(Uri.parse("geo:0,0?q=" + latAndLon));
+            mapIntent.setData(Uri.parse(latAndLon));
             startActivity(mapIntent);
         } catch (Exception e) {
             Toast.makeText(this, "Url not valid", Toast.LENGTH_SHORT).show();
