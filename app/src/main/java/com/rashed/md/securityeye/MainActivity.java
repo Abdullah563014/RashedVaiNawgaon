@@ -174,109 +174,91 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.deviceNumberButtonId) {
-            vibrateCreation();
-            if (Build.VERSION.SDK_INT > 22) {
-                String[] permissions = {
-                        Manifest.permission.SEND_SMS
-                };
-                if (!hasPermission(this, permissions)) {
-                    Toast.makeText(this, "You need to provide some permission to use the app. To grant the permission please close the app and reopen to see the permissions dialog.Thank you", Toast.LENGTH_SHORT).show();
-                }else {
+        switch (view.getId()){
+            case R.id.deviceNumberButtonId:
+                vibrateCreation();
+                if (Build.VERSION.SDK_INT > 22) {
+                    String[] permissions = {
+                            Manifest.permission.SEND_SMS
+                    };
+                    if (!hasPermission(this, permissions)) {
+                        Toast.makeText(this, "You need to provide some permission to use the app. To grant the permission please close the app and reopen to see the permissions dialog.Thank you", Toast.LENGTH_SHORT).show();
+                    }else {
+                        intent = new Intent(MainActivity.this, InputPhoneNumberActivity.class);
+                        startActivityForResult(intent, 100);
+                    }
+                } else {
                     intent = new Intent(MainActivity.this, InputPhoneNumberActivity.class);
                     startActivityForResult(intent, 100);
                 }
-            } else {
-                intent = new Intent(MainActivity.this, InputPhoneNumberActivity.class);
-                startActivityForResult(intent, 100);
-            }
+                break;
 
-        }
+            case R.id.findSmsButtonId:
+                sendSms(findTextMessage);
+                break;
 
-
-        if (view.getId() == R.id.findSmsButtonId) {
-            sendSms(findTextMessage);
-        }
+            case R.id.statusSmsButtonId:
+                sendSms(statusTextMessage);
+                break;
 
 
-        if (view.getId() == R.id.statusSmsButtonId) {
-            sendSms(statusTextMessage);
-        }
+            case R.id.alertSmsButtonId:
+                sendSms(easyTextMessage);
+                break;
 
+            case R.id.easySmsButtonId:
+                sendSms(easyTextMessage);
+                break;
 
-        if (view.getId() == R.id.alertSmsButtonId) {
-            sendSms(alertTextMessage);
-        }
+            case R.id.onSmsButtonId:
+                sendSms(onTextMessage);
+                break;
 
-        if (view.getId() == R.id.easySmsButtonId) {
-            sendSms(easyTextMessage);
-        }
+            case R.id.offSmsButtonId:
+                sendSms(offTextMessage);
+                break;
 
-        if (view.getId() == R.id.onSmsButtonId) {
-            sendSms(onTextMessage);
-        }
+            case R.id.startSmsButtonId:
+                sendSms(startTextMessage);
+                break;
 
-        if (view.getId() == R.id.offSmsButtonId) {
-            sendSms(offTextMessage);
-        }
+            case R.id.carOffSmsButtonId:
+                sendSms(carOffTextMessage);
+                break;
 
+            case R.id.carOnSmsButtonId:
+                sendSms(carOnTextMessage);
+                break;
 
-        if (view.getId() == R.id.startSmsButtonId) {
-            sendSms(startTextMessage);
-        }
+            case R.id.lockCallButtonId:
+                makeCall(phoneNumber,",*,*,*,*");
+                break;
 
-        if (view.getId() == R.id.carOffSmsButtonId) {
-            sendSms(carOffTextMessage);
-        }
+            case R.id.unLockCallButtonId:
+                makeCall(phoneNumber,",%23,%23,%23,%23");
+                break;
 
-        if (view.getId() == R.id.carOnSmsButtonId) {
-            sendSms(carOnTextMessage);
-        }
+            case R.id.contactUsButtonId:
+                makeCall("01718171529",null);
+                break;
 
-        if (view.getId() == R.id.lockCallButtonId) {
-            makeCall(phoneNumber,",*,*,*,*");
-        }
-        if (view.getId() == R.id.unLockCallButtonId) {
-            makeCall(phoneNumber,",%23,%23,%23,%23");
-        }
+            case R.id.facebookButtonId:
+                openUrl("https://www.facebook.com/naogaon.tinyscientist");
+                break;
 
-        if (view.getId() == R.id.contactUsButtonId) {
-            makeCall("01718171529",null);
-        }
-
-        if (view.getId() == R.id.facebookButtonId) {
-            vibrateCreation();
-            try {
-                if (Build.VERSION.SDK_INT > 22) {
-                    if (ContextCompat.checkSelfPermission(MainActivity.this,
-                            Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.INTERNET}, 100);
-                    } else {
-                        openFacebook();
-                    }
+            case R.id.voiceCommandButtonId:
+                vibrateCreation();
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    voiceSendSms = true;
+                    startActivityForResult(intent, 10);
                 } else {
-                    openFacebook();
+                    Toast.makeText(MainActivity.this, "Your device don't support voice command", Toast.LENGTH_SHORT).show();
                 }
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Unknown Error", Toast.LENGTH_SHORT).show();
-            }
+                break;
         }
-
-
-        if (view.getId() == R.id.voiceCommandButtonId) {
-            vibrateCreation();
-            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US);
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                voiceSendSms = true;
-                startActivityForResult(intent, 10);
-            } else {
-                Toast.makeText(MainActivity.this, "Your device don't support voice command", Toast.LENGTH_SHORT).show();
-            }
-        }
-
 //----------------------onClick method end---------------------------------
     }
 
@@ -603,14 +585,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void openFacebook() {
-        String url = "https://www.facebook.com/naogaon.tinyscientist";
+//    public void openFacebook() {
+//        String url = "https://www.facebook.com/naogaon.tinyscientist";
+//        Intent i = new Intent(Intent.ACTION_VIEW);
+//        i.setData(Uri.parse(url));
+//        Intent chooser=Intent.createChooser(i,"Choose Browser");
+//        startActivity(chooser);
+//    }
+
+    private void openUrl(String url){
+        vibrateCreation();
+        try {
+            if (Build.VERSION.SDK_INT > 22) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "You need to provide some permission to use the app. To grant the permission please close the app and reopen to see the permissions dialog.Thank you", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    openUrlHandler("https://www.facebook.com/naogaon.tinyscientist");
+                }
+            } else {
+                openUrlHandler("https://www.facebook.com/naogaon.tinyscientist");
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Unknown Error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openUrlHandler(String url){
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         Intent chooser=Intent.createChooser(i,"Choose Browser");
         startActivity(chooser);
     }
-
 
     public void updateLastButtonStatus() {
         SharedPreferences sharedPreferences = getSharedPreferences("LastButton", MODE_PRIVATE);
