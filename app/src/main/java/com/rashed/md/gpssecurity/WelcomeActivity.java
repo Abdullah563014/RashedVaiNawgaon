@@ -1,4 +1,4 @@
-package com.rashed.md.securityeye;
+package com.rashed.md.gpssecurity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

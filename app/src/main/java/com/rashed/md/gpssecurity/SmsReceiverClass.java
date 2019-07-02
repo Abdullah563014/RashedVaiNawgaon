@@ -1,11 +1,10 @@
-package com.rashed.md.securityeye;
+package com.rashed.md.gpssecurity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
-import android.widget.Toast;
 
 public class SmsReceiverClass extends BroadcastReceiver {
 

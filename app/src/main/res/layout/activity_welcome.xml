@@ -32,7 +32,7 @@
     <TextView
         android:id="@+id/welcomeAppNameTextViewId"
         android:layout_width="match_parent"
-        android:text="RASHED\'S Bike Security System"
+        android:text="RASHED\'S Gps Bike Security"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="#673AB7"

@@ -1,4 +1,4 @@
-package com.rashed.md.securityeye;
+package com.rashed.md.gpssecurity;
 
 import org.junit.Test;
 
