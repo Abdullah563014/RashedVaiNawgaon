@@ -521,8 +521,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sendStartSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
             sendCarOffSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
             sendCarOnSmsButton.setBackgroundResource(R.drawable.green_and_white_border_button);
-            lockCallButton.setBackgroundResource(R.drawable.green_and_white_border_button);
-            unlockCallButton.setBackgroundResource(R.drawable.green_and_white_border_button);
+//            lockCallButton.setBackgroundResource(R.drawable.green_and_white_border_button);
+//            unlockCallButton.setBackgroundResource(R.drawable.green_and_white_border_button);
             button.setBackgroundResource(R.drawable.red_and_black_border_button);
 
         }
