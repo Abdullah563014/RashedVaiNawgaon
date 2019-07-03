@@ -14,9 +14,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/colorul_map"
+        android:icon="@drawable/bike_logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/colorul_map"
+        android:roundIcon="@drawable/bike_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.rashed.md.gpssecurity.SmsShowActivity"></activity>
